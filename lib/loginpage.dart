@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:instagram_new/homePage.dart';
+import 'package:instagram_new/model.dart';
+import 'package:http/http.dart' as http;
 
 class loginpage extends StatefulWidget {
-  const loginpage({Key? key}) : super(key: key);
-
   @override
   State<loginpage> createState() => _loginpageState();
 }
 
 class _loginpageState extends State<loginpage> {
+  String? username="";
+  String? password="";
+
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -16,6 +21,32 @@ class _loginpageState extends State<loginpage> {
 
   bool inputTextNotNull = false;
 
+
+  Future<modelClass?> loginer() async {
+    modelClass obj;
+    var resp = await http.get(Uri.parse(
+        "https://run.mocky.io/v3/ead672d4-ddee-4b23-8f37-e1f4e223afd8"));
+    if (resp.statusCode == 200) {
+      var data = jsonDecode(resp.body);
+      obj = modelClass.fromJson(data);
+    return obj;
+  }
+
+}
+late modelClass obj;
+void getdata() async{
+ obj = (await loginer())!;
+  setState(() {
+    username = obj.username;
+    password = obj.password;
+  });
+}
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
   @override
   Widget build(BuildContext context) {
     double deviseWidth = MediaQuery.of(context).size.width;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_new/loginpage.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
