@@ -10,12 +10,14 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  var indexNum = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar:
-            BottomNavigationBar(type: BottomNavigationBarType.fixed, items: [
+            BottomNavigationBar(type: BottomNavigationBarType.fixed,
+                items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(
@@ -24,7 +26,12 @@ class _homePageState extends State<homePage> {
               icon: Icon(Icons.favorite), label: "Favortie"),
           BottomNavigationBarItem(
               icon: Icon(Icons.manage_accounts_rounded), label: "Profile"),
-        ]),
+        ],
+              currentIndex: indexNum,onTap: (int index){
+              setState(() {
+                indexNum = index;
+              });
+              },),
         appBar: AppBar(
           leading: Icon(
             Icons.camera_alt,
